@@ -1,0 +1,8 @@
+1) пост с наибольшим кол-вом тегов:
+select post_id from sports_posts where cardinality(tags) in 
+  (select max(cardinality(tags)) from  sports_posts)
+  
+2) топ-5 тегов:
+	 select name from sports_tags where tag_id in
+(select unnest(tags) from sports_posts
+     group by unnest(tags) order by count(unnest(tags)) desc limit 5) 
